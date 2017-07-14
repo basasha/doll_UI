@@ -189,12 +189,16 @@ class DollWidget(QWidget):
     def handleSaveBtn(self):    
         self.mode = 4
         self.handleIO()
-
+        '''
+        jd1[0] 1023 = left, 0 = right
+        jd1[1] 1023 = up. , 0 = down
+        '''
     def handleIO(self):
         if self.mode == 1 :
             pass
         if self.mode == 2 :
             data = dollcmd.handleIOData()
+
             self.time  += 1
             self.setValue(self.time * 0.05)
             self.setSlider(self.time *0.05)
@@ -288,20 +292,21 @@ class TimeLine(QWidget):
             lower = self.value - 10
         else:
             lower = 0 #upper = 11
-        self.emotionPool.seek(lower * 75)
-        for i in range(0,200):    
-            s = self.emotionPool.readline()
-            if '@' in s: 
-                lists = s.split('@')
-                u = int(lists[1])// 3
-                d = int(lists[1]) - 3 * u
-                u*=0.5*h
-                d*=0.5*h
-                qp.drawLine(int(i * w * 0.005)-1,u,int(i * w * 0.005),u)
-                qp.drawLine(int(i * w * 0.005)-1,d,int(i * w * 0.005),d)
-                
-            else:
-                break
+        if self.emotionPool:
+            self.emotionPool.seek(lower * 75)
+            for i in range(0,200):    
+                s = self.emotionPool.readline()
+                if '@' in s: 
+                    lists = s.split('@')
+                    u = int(lists[1])// 3
+                    d = int(lists[1]) - 3 * u
+                    u*=0.5*h
+                    d*=0.5*h
+                    qp.drawLine(int(i * w * 0.005)-1,u,int(i * w * 0.005),u)
+                    qp.drawLine(int(i * w * 0.005)-1,d,int(i * w * 0.005),d)
+                    
+                else:
+                    break
 
         '''從表情池讀取表情，並根據目前的時間刻度繪製表情'''
         qp.setPen(QColor(255, 175, 175))
