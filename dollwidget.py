@@ -190,15 +190,59 @@ class DollWidget(QWidget):
         self.mode = 4
         self.handleIO()
         '''
+        eyebrow and eye 
         jd1[0] 1023 = left, 0 = right
         jd1[1] 1023 = up. , 0 = down
+
+        ear
+        1023. = up, 0 = down
+
         '''
     def handleIO(self):
         if self.mode == 1 :
             pass
         if self.mode == 2 :
             data = dollcmd.handleIOData()
-
+            if '\n' in data :
+                lists = data.replace('\n','').split(',')
+                #ear
+                if int(lists[0]) > 512:i = 0
+                else: i = 1
+                i *= 3
+                if int(lists[1]) > 512:i += 0
+                else: i += 1   
+                self.earEmotion.write('{}@{}\n'.format(str(self.time).zfill(8), str(i)))
+                #ear
+                #eyebrow
+                if int(lists[2]) > 682: i = 0
+                elif int(lists[2]) > 341: i = 1
+                else: i = 2
+                i *= 3
+                if int(lists[3]) > 682: i += 0
+                elif int(lists[3]) > 341: i += 1
+                else: i += 2  
+                self.eyebrowEmotion.write('{}@{}\n'.format(str(self.time).zfill(8), str(i)))
+                #eyebrow
+                #eye
+                if int(lists[6]) > 682: i = 0
+                elif int(lists[6]) > 341: i = 1
+                else: i = 2
+                i *= 3
+                if int(lists[7]) > 682: i += 0
+                elif int(lists[7]) > 341: i += 1
+                else: i += 2  
+                self.eyeEmotion.write('{}@{}\n'.format(str(self.time).zfill(8), str(i)))
+                #eye
+                #mouse
+                if int(lists[10]) > 682: i = 0
+                elif int(lists[10]) > 341: i = 1
+                else: i = 2
+                i *= 3
+                if int(lists[11]) > 682: i += 0
+                elif int(lists[11]) > 341: i += 1
+                else: i += 2  
+                self.mouseEmotion.write('{}@{}\n'.format(str(self.time).zfill(8), str(i)))
+                #mouse
             self.time  += 1
             self.setValue(self.time * 0.05)
             self.setSlider(self.time *0.05)
@@ -293,17 +337,17 @@ class TimeLine(QWidget):
         else:
             lower = 0 #upper = 11
         if self.emotionPool:
-            self.emotionPool.seek(lower * 75)
-            for i in range(0,200):    
+            self.emotionPool.seek(lower * 20 * 11)
+            for i in range(0,240):    
                 s = self.emotionPool.readline()
                 if '@' in s: 
                     lists = s.split('@')
                     u = int(lists[1])// 3
                     d = int(lists[1]) - 3 * u
-                    u*=0.5*h
-                    d*=0.5*h
-                    qp.drawLine(int(i * w * 0.005)-1,u,int(i * w * 0.005),u)
-                    qp.drawLine(int(i * w * 0.005)-1,d,int(i * w * 0.005),d)
+                    u=u*0.05*h+0.6*h
+                    d=d*0.05*h+0.1*h
+                    qp.drawLine(int(i * w / 240)-1,u,int(i * w  /240),u)
+                    qp.drawLine(int(i * w / 240)-1,d,int(i * w / 240),d)
                     
                 else:
                     break
@@ -342,5 +386,7 @@ class TimeLine(QWidget):
 '''
 2017/07/07 13:36-17:45
 2017/07/10 13:32-18:15
-2017/07/12 13:30-
+2017/07/12 13:30-17:05
+2017/07/14 13:20-16:00
+2017/07/17 13:48-1
 '''
