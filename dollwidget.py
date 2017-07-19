@@ -99,7 +99,8 @@ class DollWidget(QWidget):
         self.eyebrowEmotion = open('eyebrow.dqbe','w+')
         self.eyeEmotion = open('eye.dqbe','w+') 
         self.earEmotion = open('ear.dqbe','w+') 
-        self.mouseEmotion = open('mouse.dqbe','w+')  
+        self.mouseEmotion = open('mouse.dqbe','w+')
+        self.file        = open('emoji.dqpe','a+')  
         '''mode 1 as play. mode 2 as record. mode 3 as stop. mode 4 as save.'''
         self.thisDoll    = QCheckBox(self.name, self)
         self.eyebrow     = QCheckBox('eyebrow', self)
@@ -200,9 +201,16 @@ class DollWidget(QWidget):
         '''
     def handleIO(self):
         if self.mode == 1 :
-            pass
+            data = self.file.readline()
+            #dollcmd.sendUDP()
+            self.time += 1
+            self.setValue(self.time * 0.05)
+            self.setSlider(self.time *0.05)
+            QTimer.singleShot(50, self.handleIO)
         if self.mode == 2 :
             data = dollcmd.handleIOData()
+            self.file.write(data)
+            #dollcmd.sendUDP(data)
             if '\n' in data :
                 lists = data.replace('\n','').split(',')
                 #ear
@@ -388,5 +396,6 @@ class TimeLine(QWidget):
 2017/07/10 13:32-18:15
 2017/07/12 13:30-17:05
 2017/07/14 13:20-16:00
-2017/07/17 13:48-1
+2017/07/17 13:48-16:10
+2017/07/19 14:26-1
 '''
