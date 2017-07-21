@@ -26,19 +26,11 @@ class Example(QMainWindow):
         action = fileMenu.addAction('Change File Path')
         action.triggered.connect(self.changeFilePath)
 
-        #self.setMenuBar(menuBar)
-
         toolbar = self.addToolBar('Exit')
         toolbar.addAction(exitAction)
-
         self.setCentralWidget(self.doll)
-        '''
-        vbox = QVBoxLayout()
-        vbox.addWidget(self.doll)
-        self.setLayout(vbox)        
-        '''
-        #self.setWindowTitle('Doll UI')
-        #self.show()
+        self.setWindowTitle('Doll UI')
+
     def changeFilePath(self):
         print('changeFilePath')
         # self.userFilePath = functions_classes.changeFilePath()
