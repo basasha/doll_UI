@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import sys
-from PyQt5.QtWidgets import (QWidget, QSlider, QApplication, QLabel, QCheckBox, QPushButton, QGridLayout, QScrollArea,
+from PyQt5.QtWidgets import (QWidget, QSlider, QApplication, QLabel, QCheckBox, QPushButton, QGridLayout, QScrollArea, QScrollBar,
     QHBoxLayout, QVBoxLayout)
 from PyQt5.QtCore import QObject, Qt, pyqtSignal, QTimer
 from PyQt5.QtGui import QPainter, QFont, QColor, QPen, QMouseEvent
@@ -116,7 +116,7 @@ class DollWidget(QWidget):
         self.eyeLine     = TimeLine(scale=False, emotionPool=self.eyeEmotion, types='eye')
         self.earLine     = TimeLine(scale=False, emotionPool=self.earEmotion, types='ear')
         self.mouseLine   = TimeLine(scale=False, emotionPool=self.mouseEmotion, types='mouse')
-        self.slider      = QSlider(Qt.Horizontal)
+        self.slider      = QScrollBar(Qt.Horizontal)
         self.slider.setMinimum(0)
         self.slider.setMaximum(100)
         self.relativeMaximum = 15
@@ -397,5 +397,6 @@ class TimeLine(QWidget):
 2017/07/12 13:30-17:05
 2017/07/14 13:20-16:00
 2017/07/17 13:48-16:10
-2017/07/19 14:26-1
+2017/07/19 14:26-17:10
+2017/07/21 13:40-1
 '''

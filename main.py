@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 import sys
 import dollwidget
-from PyQt5.QtWidgets import  QWidget, QVBoxLayout, QApplication
+from PyQt5.QtWidgets import  QWidget, QVBoxLayout, QApplication, QAction, QMainWindow, QMenuBar
+from PyQt5.QtGui import QIcon
 import getopt
-class Example(QWidget):
+class Example(QMainWindow):
     
     def __init__(self, usbcom=None, target='0.0.0.0', port=0):
         super(Example, self).__init__()
@@ -14,13 +15,34 @@ class Example(QWidget):
         
     def initUI(self):
         self.doll     = dollwidget.DollWidget(self.usbcom, self.target, self.port)
+        exitAction = QAction(QIcon('exit24.png'), 'Exit', self)
+        exitAction.setShortcut('Ctrl+Q')
+        exitAction.setStatusTip('Exit application')
+        exitAction.triggered.connect(self.close)
+
+        self.statusBar()
+        menuBar = self.menuBar()
+        fileMenu = menuBar.addMenu('File')
+        action = fileMenu.addAction('Change File Path')
+        action.triggered.connect(self.changeFilePath)
+
+        #self.setMenuBar(menuBar)
+
+        toolbar = self.addToolBar('Exit')
+        toolbar.addAction(exitAction)
+
+        self.setCentralWidget(self.doll)
+        '''
         vbox = QVBoxLayout()
         vbox.addWidget(self.doll)
-        self.setLayout(vbox)
-        self.setWindowTitle('Doll UI')
-        self.show()
-
-
+        self.setLayout(vbox)        
+        '''
+        #self.setWindowTitle('Doll UI')
+        #self.show()
+    def changeFilePath(self):
+        print('changeFilePath')
+        # self.userFilePath = functions_classes.changeFilePath()
+        # functions_classes.storeFilePath(self.userFilePath, 1) 
 def main():
     usbcom=None
     target='0.0.0.0'
@@ -42,6 +64,7 @@ def main():
             assert False, "Unhandled Option"                         
     app = QApplication(sys.argv)
     ex = Example(usbcom, target, port)
+    ex.show()
     sys.exit(app.exec_())
 if __name__ == '__main__':
     main()
