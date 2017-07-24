@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys
-import dollwidget
+#import dollwidget
+from DollUi import DollUi
 from PyQt5.QtWidgets import  QWidget, QVBoxLayout, QApplication, QAction, QMainWindow, QMenuBar
 from PyQt5.QtGui import QIcon
 import getopt
@@ -14,7 +15,7 @@ class Example(QMainWindow):
         self.initUI()
         
     def initUI(self):
-        self.doll     = dollwidget.DollWidget(self.usbcom, self.target, self.port)
+        self.doll     = DollUi(self.usbcom, self.target, self.port)
         exitAction = QAction(QIcon('exit24.png'), 'Exit', self)
         exitAction.setShortcut('Ctrl+Q')
         exitAction.setStatusTip('Exit application')
