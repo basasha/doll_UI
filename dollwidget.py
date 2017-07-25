@@ -422,17 +422,6 @@ class TimeLine(QWidget):
                 qp.drawText(i-fw/2, h/2, str(j+correction_word))
             j = j + 1
 
-
-
-    def getEmotiomFromPool(self):   
-        if self.value > 10:
-            #upper = self.value + 2
-            lower = self.value - 10
-        else:
-            lower = 0 #upper = 11
-        self.emotionPool.seek(lower * 75)
-        for i in range(0,200):    
-            pass
 '''
 2017/07/07 13:36-17:45
 2017/07/10 13:32-18:15
@@ -440,5 +429,6 @@ class TimeLine(QWidget):
 2017/07/14 13:20-16:00
 2017/07/17 13:48-16:10
 2017/07/19 14:26-17:10
-2017/07/21 13:40-1
+2017/07/21 13:40-16:38 fin
+這是一個備份檔，最後編輯2017/07/21 16:38
 '''
