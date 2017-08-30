@@ -49,7 +49,7 @@ class QGraphicsTimeline(QGraphicsView):
             while p:
                 c=p
                 p=c.parentItem()
-            r = self.currentDraggedItem.mapToParent(c.boundingRect().topLeft())
+            r = self.currentDraggedItem.mapToScene(c.boundingRect().topLeft())
             self.currentDraggedItem = c
             self.point = event.pos() - r
         self.setText('({}, {})'.format(event.pos().x(), event.pos().y()))    
