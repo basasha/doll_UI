@@ -150,16 +150,16 @@ def handleIOData():
     elif holdon:
         pass        
     else:
-        t1 = [svr[0], svr[1], jd1[0], jd1[1], jd2[0], jd2[1], jd3[0], jd3[1], jd4[0], jd4[1], svr[3], svr[4], bt[0]]
+        t1 = [svr[2], svr[1], jd1[0], jd1[1], jd2[0], jd2[1], jd3[0], jd3[1], jd4[0], jd4[1], svr[3], svr[4], bt[0]]
 
         if isInit(t1, init) and quick_flag:
             pass
         elif not sysnc:
-            sendData = '{},{},{},{},{},{},{},{},{},{},{},{},{}\n'.format(svr[0], svr[1], jd3[0], jd3[1], jd3[0], jd3[1], jd4[0], jd4[1], jd4[0], jd4[1], jd5[1], jd5[1], bt[0])
+            sendData = '{},{},{},{},{},{},{},{},{},{},{},{},{}\n'.format(svr[2], svr[1], jd3[0], jd3[1], jd3[0], jd3[1], jd4[0], jd4[1], jd4[0], jd4[1], jd5[1], jd5[1], bt[0])
             last_data = sendData
             quick_flag =False
         else:
-            sendData = '{},{},{},{},{},{},{},{},{},{},{},{},{}\n'.format(svr[0], svr[1], jd1[0], jd1[1], jd2[0], jd2[1], jd3[0], jd3[1], jd4[0], jd4[1], svr[3], svr[4], bt[0])
+            sendData = '{},{},{},{},{},{},{},{},{},{},{},{},{}\n'.format(svr[2], svr[1], jd1[0], jd1[1], jd2[0], jd2[1], jd3[0], jd3[1], jd4[0], jd4[1], svr[3], svr[4], bt[0])
             last_data = sendData
             quick_flag =False
     return sendData

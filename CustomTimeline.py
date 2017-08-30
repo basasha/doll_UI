@@ -106,10 +106,15 @@ class DollWidget(QWidget):
         self.mode        = 0
         self.time        = 0
         self.eyebrowEmotion = open('eyebrow.dqbe','w+')
+        self.eyebrowEmotion.seek(0)
         self.eyeEmotion = open('eye.dqbe','w+') 
+        self.eyeEmotion.seek(0)
         self.earEmotion = open('ear.dqbe','w+') 
+        self.earEmotion.seek(0)
         self.mouseEmotion = open('mouse.dqbe','w+')
-        self.file        = open('emoji.dqpe','a+')  
+        self.mouseEmotion.seek(0)
+        self.file        = open('emoji.dqpe','a+')
+        self.file.seek(0)        
         '''mode 1 as play. mode 2 as record. mode 3 as stop. mode 4 as save.'''
         self.thisDoll    = QCheckBox(self.name, self)
         self.eyebrow     = QCheckBox('eyebrow', self)
@@ -221,6 +226,10 @@ class DollWidget(QWidget):
             self.file.write(data)
             #dollcmd.sendUDP(data)
             if '\n' in data :
+                self.eyebrowEmotion.seek(self.time*12)
+                self.eyeEmotion.seek(self.time*12)
+                self.earEmotion.seek(self.time*12)
+                self.mouseEmotion.seek(self.time*12)
                 lists = data.replace('\n','').split(',')
                 #ear
                 if int(lists[0]) > 512:i = 0
