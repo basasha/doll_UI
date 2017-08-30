@@ -40,7 +40,7 @@ class QGraphicsTimeline(QGraphicsView):
     def setText(self, text):
         if not self.view is None:
             self.view.setText(text)
-                
+    #算是相對完整的移動功能            
     def mousePressEvent(self, event):
         self.currentDraggedItem = self.itemAt(event.pos())
         if not self.currentDraggedItem is None:
@@ -49,19 +49,23 @@ class QGraphicsTimeline(QGraphicsView):
             while p:
                 c=p
                 p=c.parentItem()
-            r = self.currentDraggedItem.mapToScene(c.boundingRect().topLeft())
             self.currentDraggedItem = c
-            self.point = event.pos() - r
-        self.setText('({}, {})'.format(event.pos().x(), event.pos().y()))    
-        #super(QGraphicsTimeline, self).mousePressEvent(event)
+            center =c.mapToScene(c.boundingRect().topLeft())
+            self.point = event.pos() - center#CP-TL 
+            self.setText('center:({},{}),\t click point:({},{})'.format(center.x(), center.y(),event.pos().x(), event.pos().y()))
+
     def mouseMoveEvent(self, event):
         if not self.currentDraggedItem is None:
-            self.currentDraggedItem.setPos(event.pos()-self.point) 
+            self.currentDraggedItem.setPos(event.pos()-self.point) #CP'-(CP-TL)=TL+(CP'-CP)
             self.setText('({}, {})'.format(event.pos().x(), event.pos().y()))
 
     def mouseReleaseEvent(self, event):
         if not self.currentDraggedItem is None:
-            self.currentDraggedItem.setPos(event.pos()-self.point)
+            self.currentDraggedItem.setPos(event.pos()-self.point) #CP'-(CP-TL)=TL+(CP'-CP) 
+            # note:setPos(C') 
+            # C'= C + (CP'-CP) 
+            # C = TL
+            #
             self.setText('({}, {})'.format(event.pos().x(), event.pos().y()))
             self.currentDraggedItem = None    
         #super(QGraphicsTimeline, self).mouseReleaseEvent(event)
@@ -181,4 +185,8 @@ if __name__ == '__main__':
 2017/07/26 13:58-18:10
 2017/07/27 13:50-
 
+'''
+
+'''
+當你不知道該如何是好的時候，至少可以享受那個過程
 '''
